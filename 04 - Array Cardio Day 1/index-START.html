@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -35,32 +37,141 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
-    
+
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const fifteen = inventors.filter(function (inventor) {
+      if (inventor.year >= 1500 && inventor.year < 1600) {
+        return true; //significa que te lo quedas
+      }
+    });
+    console.table(fifteen);
+    console.log(fifteen);
+
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    const fullName = inventors.map(inventor => inventor.first + " " + inventor.last);
+    console.log(fullName);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const ordered = inventors.sort(function (a, b) {
+      if (a.year > b.year) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    console.table(ordered);
+    const ordered2 = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+    console.table(ordered2);
+
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    ///allow to build something
+
+    //con loop
+    // let totalYears = 0;
+    // for (let i = 0; i <inventors.length; i++){
+    //   totalYears += inventors[i].year
+    // }
+    // console.log(totalYears);
+
+    //con reduce ()
+    const totalYears = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0);
+    console.log(totalYears);
+
 
     // 5. Sort the inventors by years lived
+    const longevo = inventors.sort((a, b) => {
+      if (a.passed - a.year > b.passed - b.year) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
+    console.table(longevo); ///el que vivio mas anios va ULTIMO
+
+    const oldest = inventors.sort((a, b) => {
+      const lastGuy = a.passed - a.year;
+      const nextGuy = b.passed - b.year;
+      if (lastGuy > nextGuy) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+    console.table(oldest); //el que vivio mas va PRIMERO
+
+    //con TERNARY OPERATOR
+    // const oldest = inventors.sort((a, b) => {
+    //   const lastGuy = a.passed - a.year;
+    //   const nextGuy = b.passed - b.year;
+    //   return lastGuy > nextGuy ? -1 : 1;
+    // });
+    //console.log(oldest);
+
+
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // const category = document.querySelector('.mw-category');
+    // console.log(category);
+    // const links = Array.from(category.querySelectorAll('a')); ///convertir nodelist a Array
 
-    // 7. sort Exercise
+    // console.log(links);
+    // const de = links //nuevo array sera 'de'
+    //             .map(link => link.textContent) //primero map, este nuevo array aún no tiene nombre.
+    //             .filter(streetName => streetName.includes('de')); //si retorna TRUE se agrega ese elemento a la nueva array de
+
+    ///aplicación encadenada de los métodos .map() y .filter().
+    ///, el código toma el array links, aplica el método .map() para crear un nuevo array de que contiene el texto de cada enlace en links, y luego aplica el método .filter() a de para filtrar los elementos que contienen la cadena "de" en su texto. El resultado final de esta operación es almacenado en la variable de.
+ 
+
+
+  // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alfabOrder = people.sort((lastOne, nextOne) =>{
+       
+      const [alast, afirst] = lastOne.split(', ');// //crear un array para c/elemento que contiene 2 elementos dentro: lastName and firstName ----> destructure
+      const [blast, bfirst] = nextOne.split(', '); 
+      return alast > blast ? 1 : -1 ;
+    });
+    console.log(alfabOrder);
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+      const transportation = data.reduce(function(obj, item){
+        if(!obj[item]){
+          obj[item] = 0;
+        }
+        obj[item]++;
+        return obj;
+    
+      }, {}) //crear un object vacio
+      console.log(transportation);
+
+// El código proporcionado utiliza el método .reduce() para contar la cantidad de veces que aparece cada elemento del array data.
+
+// La función de reducción se llama para cada elemento del array data y se le pasan dos argumentos: obj y item. obj es el objeto que se está construyendo durante la reducción, que contiene el recuento de cada elemento en data. item es el elemento actual del array data que se está procesando. El valor de item no se agrega directamente al objeto obj, sino que se utiliza como clave para acceder a una propiedad del objeto.
+
+// Primero, se comprueba si el elemento item no existe como propiedad en el objeto obj. Si es así, se agrega item como una propiedad del objeto y se inicializa su valor en 0.
+
+// Luego, se incrementa el valor de la propiedad correspondiente a item en 1.
+
+// Finalmente, se devuelve el objeto actualizado obj.
+
+// En el segundo argumento de .reduce(), se proporciona un objeto vacío {} como objeto inicial para el contador.
+
+// Después de que se complete la reducción, se imprime el objeto transportation en la consola, que contiene las cuentas de cada elemento del array data.
   </script>
 </body>
+
 </html>
