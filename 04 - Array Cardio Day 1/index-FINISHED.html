@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
   <link rel="icon" href="https://fav.farm/✅" />
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -69,7 +71,7 @@
     console.log(totalYears);
 
     // 5. Sort the inventors by years lived
-    const oldest = inventors.sort(function(a, b) {
+    const oldest = inventors.sort(function (a, b) {
       const lastInventor = a.passed - a.year;
       const nextInventor = b.passed - b.year;
       return lastInventor > nextInventor ? -1 : 1;
@@ -98,7 +100,7 @@
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogostick'];
 
-    const transportation = data.reduce(function(obj, item) {
+    const transportation = data.reduce(function (obj, item) {
       if (!obj[item]) {
         obj[item] = 0;
       }
@@ -108,6 +110,32 @@
 
     console.log(transportation);
 
+    ///contar solo 1 elemento
+    // const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogostick'];
+
+    // const count = data.reduce(function (obj, item) {
+    //   if (item === 'car') {
+    //     obj.car = (obj.car || 0) + 1;
+    //   }
+    //   return obj;
+    // }, {});
+
+    // console.log(count);
+
+     function countElem (array, elem){
+      const count = array.reduce(function (obj, item) {
+      if (item === elem) {
+        obj.car = (obj.car || 0) + 1;
+      }
+      return obj;
+    }, {});
+      return count
+     }
+    
+
+    console.log(countElem(data, 'car'));
+
   </script>
 </body>
+
 </html>
